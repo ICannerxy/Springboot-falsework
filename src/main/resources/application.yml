@@ -5,7 +5,25 @@ spring:
     username: root
     password: root
     type: com.alibaba.druid.pool.DruidDataSource
+  cache:
+    type: ehcache
+    ehcache:
+      config: classpath:ehcache.xml
 
 mybatis:
   type-aliases-package: com.byavs.frame.dao.model
   mapper-locations: com/byavs/frame/dao/mapper/xml/*.xml
+
+# 打印sql
+logging:
+  level:
+    com.byavs.frame.dao.mapper : debug
+# file: framework.log 正式环境开启日志记录
+
+debug: true
+pagehelper:
+  reasonable: true
+  offset-as-page-num: mysql
+  page-size-zero: true
+server:
+  port: 80
