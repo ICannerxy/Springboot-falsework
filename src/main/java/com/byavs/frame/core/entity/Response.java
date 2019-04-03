@@ -1,8 +1,8 @@
-package com.byavs.frame.core.base.rest;
+package com.byavs.frame.core.entity;
 
 
 
-import com.byavs.frame.core.base.constants.ResultCode;
+import com.byavs.frame.core.constants.ResultCode;
 
 import java.io.Serializable;
 
@@ -69,6 +69,13 @@ public class Response implements Serializable {
         response.data = data;
         return response;
 
+    }
+
+    public static Response success(String msg ) {
+        Response response = new Response();
+        response.ret = String.valueOf(ResultCode.SUCCESS.getCode());
+        response.msg = msg;
+        return response;
     }
 
 

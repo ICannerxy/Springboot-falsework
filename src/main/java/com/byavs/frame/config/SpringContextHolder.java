@@ -1,22 +1,23 @@
-package com.byavs.frame.core.base.context;
+package com.byavs.frame.config;
 
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
+import org.springframework.stereotype.Component;
 
 /**
  * @author XuYang
  * @description: Spring上下文
- * @date 2019/3/2214:24
+ * @date 2019/4/310:48
  */
-public class SpringContext implements ApplicationContextAware {
-
+@Component
+public class SpringContextHolder implements ApplicationContextAware {
 
     private static ApplicationContext applicationContext;
 
     @Override
     public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
-        SpringContext.applicationContext = applicationContext;
+        SpringContextHolder.applicationContext = applicationContext;
     }
 
     public static ApplicationContext getApplicationContext() {
@@ -36,7 +37,7 @@ public class SpringContext implements ApplicationContextAware {
     }
 
     private static void assertApplicationContext() {
-        if (SpringContext.applicationContext == null) {
+        if (SpringContextHolder.applicationContext == null) {
             throw new RuntimeException("applicaitonContext属性为null,请检查是否注入了SpringContextHolder!");
         }
     }

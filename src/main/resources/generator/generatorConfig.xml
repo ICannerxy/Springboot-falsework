@@ -74,7 +74,7 @@
         </plugin>
         <!-- 数据库连接 -->
         <jdbcConnection driverClass="com.mysql.cj.jdbc.Driver"
-                        connectionURL="jdbc:mysql://localhost:3306/EGLSC_TRUCK?useUnicode=true&amp;characterEncoding=UTF-8&amp;zeroDateTimeBehavior=convertToNull"
+                        connectionURL="jdbc:mysql://localhost:3306/guns?serverTimezone=UTC&amp;useUnicode=true&amp;characterEncoding=UTF-8&amp;zeroDateTimeBehavior=convertToNull"
                         userId="root"
                         password="root">
             <!--获取数据库注释-->
@@ -103,7 +103,7 @@
             <!-- 如果设置了这个根对象，那么生成的keyClass或者recordClass会继承这个类；在Table的rootClass属性中可以覆盖该选项
                 注意：如果在key class或者record class中有root class相同的属性，MBG就不会重新生成这些属性了，包括：
                     1，属性名相同，类型相同，有相同的getter/setter方法；-->
-            <property name="rootClass" value="com.byavs.frame.core.base.entity.BaseModel"/>
+            <property name="rootClass" value="com.byavs.frame.core.entity.BaseModel"/>
         </javaModelGenerator>
 
         <sqlMapGenerator targetPackage="com.byavs.frame.dao.mapper.xml"
@@ -154,6 +154,6 @@
                 如果使用了columnOverride元素，该属性无效；
             注意，table里面很多参数都是对javaModelGenerator，context等元素的默认属性的一个复写；
          -->
-        <table tableName="user"/>
+        <table tableName="t_user"/>
     </context>
 </generatorConfiguration>

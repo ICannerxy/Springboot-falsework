@@ -40,7 +40,7 @@ public class SwaggerConfig {
         return new Docket(DocumentationType.SWAGGER_2)
                 .apiInfo(apiInfo())
                 .select()
-                .apis(RequestHandlerSelectors.basePackage("com.byavs.frame.controller"))
+                .apis(RequestHandlerSelectors.basePackage("com.byavs.frame.controller")) //swagger扫描包路径
                 .paths(PathSelectors.any())
                 .build();
     }
@@ -50,7 +50,7 @@ public class SwaggerConfig {
         return new ApiInfoBuilder()
                 .title("Byavs Doc")
                 .description("Byavs Api文档")
-                .contact(new Contact("ican", "http://www.byavs.com/", "icanner@qq.com"))
+                .contact(new Contact("XuYang", "http://www.byavs.com/", "yang.xu@byavs.com"))
                 .version("V1.0")
                 .build();
     }

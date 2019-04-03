@@ -1,8 +1,6 @@
 package com.byavs.frame.core.utli;
 
-import com.byavs.frame.core.base.exception.ApplicationException;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import com.byavs.frame.core.exception.ApplicationException;
 
 import java.io.IOException;
 import java.io.PrintWriter;

@@ -1,9 +1,7 @@
-package com.byavs.frame.core.base.exception;
+package com.byavs.frame.core.exception;
 
-import com.byavs.frame.core.base.constants.LogCatalog;
-import com.byavs.frame.core.base.context.AppContext;
-import com.byavs.frame.core.base.entity.LoginUserContext;
-import com.byavs.frame.core.base.rest.Response;
+import com.byavs.frame.core.constants.LogCatalog;
+import com.byavs.frame.core.entity.Response;
 import org.apache.ibatis.exceptions.PersistenceException;
 import org.mybatis.spring.MyBatisSystemException;
 import org.slf4j.Logger;
@@ -36,11 +34,6 @@ public class GlobalExceptionHandler {
         sb.append(String.format("       url: [%s]", request.getRequestURL())).append(LINE_SEPARATOR);
         sb.append(String.format(" server-ip: [%s:%s]", request.getLocalAddr(), request.getLocalPort())).append(LINE_SEPARATOR);
         sb.append(String.format("request-ip: [%s]", request.getRemoteHost())).append(LINE_SEPARATOR);
-        LoginUserContext userContext = AppContext.getUserContext();
-        if (null != userContext) {
-            sb.append(LINE_SEPARATOR);
-            sb.append(String.format("user: [%s|%s|%s]", userContext.getOrgName(), userContext.getNickName(), userContext.getUserName()));
-        }
         return sb.toString();
     }
 

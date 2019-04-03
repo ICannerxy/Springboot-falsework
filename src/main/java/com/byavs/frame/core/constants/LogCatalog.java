@@ -1,4 +1,4 @@
-package com.byavs.frame.core.base.constants;
+package com.byavs.frame.core.constants;
 
 /**
  * Created by qibin.long on 2017/4/14.

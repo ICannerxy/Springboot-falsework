@@ -9,7 +9,7 @@ import java.util.List;
 /**
  * Created by qibin.long on 2017/4/16.
  */
-public final class BeanCopierUtil {
+public final class BeanCopyUtil {
     /**
      * 将一个对象转换为指定类型对象
      *

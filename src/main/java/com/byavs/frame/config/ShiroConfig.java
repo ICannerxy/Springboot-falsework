@@ -33,10 +33,10 @@ import java.util.Map;
 @Configuration
 public class ShiroConfig {
 
-    // rememberMe最长日期 7 天
-    private static final Integer REMEMBER_ME_MAX_AGE = 7 * 24 * 60 * 60;
+    // rememberMe最长日期 15 天
+    private static final Integer REMEMBER_ME_MAX_AGE = 15 * 24 * 60 * 60;
     // session 验证失效时间（默认为15分钟 单位：秒）
-    private static final Integer SESSION_VALIDATION_INTERVAL = 15 * 60 * 1000;
+    private static final Integer SESSION_VALIDATION_INTERVAL =  15 * 60 * 1000;
     // session 失效时间（默认为30分钟 单位：秒）
     private static final Integer GLOBAL_SESSION_TIMEOU = 30 * 60 * 1000;
 
@@ -93,7 +93,7 @@ public class ShiroConfig {
     }
 
     /**
-     * rememberMe管理器, cipherKey生成见{@code Base64Test.java}
+     * rememberMe管理器, cipherKey生成见{@link# Base64Test.java}
      */
     @Bean
     public CookieRememberMeManager rememberMeManager(SimpleCookie rememberMeCookie) {
@@ -110,7 +110,7 @@ public class ShiroConfig {
     public SimpleCookie rememberMeCookie() {
         SimpleCookie simpleCookie = new SimpleCookie("rememberMe");
         simpleCookie.setHttpOnly(true);
-        simpleCookie.setMaxAge(REMEMBER_ME_MAX_AGE);//7天
+        simpleCookie.setMaxAge(REMEMBER_ME_MAX_AGE);//15天
         return simpleCookie;
     }
 
@@ -125,10 +125,6 @@ public class ShiroConfig {
          * 默认的登陆访问url
          */
         shiroFilter.setLoginUrl("/login");
-        /**
-         * 登陆成功后跳转的url
-         */
-        shiroFilter.setSuccessUrl("/");
         /**
          * 没有权限跳转的url
          */
@@ -155,11 +151,20 @@ public class ShiroConfig {
          * api开头的接口，走rest api鉴权，不走shiro鉴权
          *
          */
-        Map<String, String> hashMap = new LinkedHashMap<>();
-        hashMap.put("/static/**", "anon");
-        hashMap.put("/login", "anon");
-        hashMap.put("/**", "user");
-        shiroFilter.setFilterChainDefinitionMap(hashMap);
+        Map<String, String> filterMap = new LinkedHashMap<>();
+        // 静态资源访问 可以匿名访问
+        filterMap.put("/static/**", "anon");
+
+        // swagger-ui 可以匿名访问
+        filterMap.put("/swagger-ui.html", "anon");
+        filterMap.put("/webjars/**", "anon");
+        filterMap.put("/v2/**", "anon");
+        filterMap.put("/swagger-resources/**", "anon");
+
+        // 登录接口,匿名访问
+        filterMap.put("/login", "anon");
+        filterMap.put("/**", "user");
+        shiroFilter.setFilterChainDefinitionMap(filterMap);
         return shiroFilter;
     }
 
@@ -189,9 +194,8 @@ public class ShiroConfig {
      */
     @Bean
     public AuthorizationAttributeSourceAdvisor authorizationAttributeSourceAdvisor(DefaultWebSecurityManager securityManager) {
-        AuthorizationAttributeSourceAdvisor authorizationAttributeSourceAdvisor =
-                new AuthorizationAttributeSourceAdvisor();
-        authorizationAttributeSourceAdvisor.setSecurityManager(securityManager);
-        return authorizationAttributeSourceAdvisor;
+        AuthorizationAttributeSourceAdvisor sourceAdvisor = new AuthorizationAttributeSourceAdvisor();
+        sourceAdvisor.setSecurityManager(securityManager);
+        return sourceAdvisor;
     }
 }

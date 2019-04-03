@@ -1,7 +1,7 @@
-package com.byavs.frame.core.base.exception;
+package com.byavs.frame.core.exception;
 
 
-import com.byavs.frame.core.base.constants.ResultCode;
+import com.byavs.frame.core.constants.ResultCode;
 
 /**
  * Created by qibin.long on 2017/4/14.
@@ -12,8 +12,6 @@ public class ApplicationException extends RuntimeException {
     private String msg;
 
     private Object data;
-
-    private Throwable innerException;
 
     public ApplicationException(String msg) {
         super(msg);

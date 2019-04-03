@@ -19,7 +19,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 public class DataSourceConfig {
 
     /**
-     * druid配置
+     * druid属性Bean
      */
     @Bean
     @ConfigurationProperties(prefix = "spring.datasource")
@@ -28,7 +28,7 @@ public class DataSourceConfig {
     }
 
     /**
-     * 单数据源连接池配置
+     * 数据源连接池配置
      */
     @Bean
     public DruidDataSource dataSource(DruidProperties druidProperties) {

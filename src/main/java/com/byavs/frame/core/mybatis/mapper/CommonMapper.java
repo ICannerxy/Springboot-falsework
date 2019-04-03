@@ -5,6 +5,12 @@ import org.apache.ibatis.annotations.Param;
 import javax.validation.Valid;
 import java.util.List;
 
+/**
+ * mapper接口的父接口
+ *
+ * @param <T>
+ * @param <V>
+ */
 public interface CommonMapper<T, V> {
     long countByExample(V example);
 

@@ -1,26 +1,23 @@
-package com.byavs.frame.core.base.entity;
+package com.byavs.frame.core.entity;
 
 
 
-import com.byavs.frame.core.base.context.AppContext;
+import com.byavs.frame.core.shiro.ShiroKit;
+import com.byavs.frame.core.shiro.ShiroUser;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.UUID;
 
 /**
  * Created by qibin.long on 2017/4/19.
  */
 public class BaseModel implements Serializable {
+
     /**
-     * 唯一标识
+     * 主键ID
      */
     private String id;
-
-    /**
-     * 归属人
-     */
-    private String ownerId;
-
     /**
      * 创建时间
      */
@@ -60,15 +57,7 @@ public class BaseModel implements Serializable {
     }
 
     public void setId(String id) {
-        this.id = id == null ? null : id.trim();
-    }
-
-    public String getOwnerId() {
-        return ownerId;
-    }
-
-    public void setOwnerId(String ownerId) {
-        this.ownerId = ownerId == null ? null : ownerId.trim();
+        this.id = id;
     }
 
     public Date getCreateTime() {
@@ -131,23 +120,15 @@ public class BaseModel implements Serializable {
      * 插入数据初始化
      */
     public void setDataForInsert() {
-        LoginUserContext userContext = AppContext.getUserContext();
+        ShiroUser shiroUser = ShiroKit.getUser();
         //主键
-        this.setId(java.util.UUID.randomUUID().toString().replaceAll("-", ""));
-        //拥有者
-        this.setOwnerId(userContext.getOrgCode());
+        this.setId(UUID.randomUUID().toString().replaceAll("-", ""));
         //创建人
-        this.setCreator(userContext.getNickName());
+        this.setCreator(shiroUser.getName());
         //创建人ID
-        this.setCreatorId(userContext.getUserName());
+        this.setCreatorId(shiroUser.getId());
         //创建时间
         this.setCreateTime(new Date());
-        //修改人
-        this.setModifier(this.getCreator());
-        //修改人ID
-        this.setModifierId(this.getCreatorId());
-        //修改时间
-        this.setModifyTime(this.getCreateTime());
         //版本号
         this.setRecVersion(0);
     }
@@ -156,11 +137,9 @@ public class BaseModel implements Serializable {
      * 修改数据初始化
      */
     public void setDataForUpdate() {
-        LoginUserContext userContext = AppContext.getUserContext();
-        //主键
+        ShiroUser shiroUser = ShiroKit.getUser();
+        // 主键不更新
         this.setId(null);
-        //拥有者，修改时不修改
-        this.setOwnerId(null);
         //创建人，修改时不修改
         this.setCreator(null);
         //创建人ID，修改时不修改
@@ -168,9 +147,9 @@ public class BaseModel implements Serializable {
         //创建时间，修改时不修改
         this.setCreateTime(null);
         //修改人
-        this.setModifier(userContext.getNickName());
+        this.setModifier(shiroUser.getName());
         //修改人ID
-        this.setModifierId(userContext.getUserName());
+        this.setModifierId(shiroUser.getId());
         //修改时间
         this.setModifyTime(new Date());
     }

@@ -1,12 +1,11 @@
-package com.byavs.frame.core.base.constants;
+package com.byavs.frame.core.constants;
 
 /**
  * Created by qibin.long on 2017/4/14.
  */
 public enum ResultCode {
 
-    SUCCESS(0, "ok"),
-    NOTICE(1, "notice"),
+    SUCCESS(200, "ok"),
     ERROR(-1, "unknown exception");
 
     private int code;

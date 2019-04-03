@@ -1,4 +1,4 @@
-package com.byavs.frame.core.base.entity;
+package com.byavs.frame.core.entity;
 
 import java.io.Serializable;
 import java.util.List;

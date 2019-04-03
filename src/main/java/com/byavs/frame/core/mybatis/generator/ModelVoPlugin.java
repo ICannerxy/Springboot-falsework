@@ -12,6 +12,7 @@ import org.mybatis.generator.exception.ShellException;
 import org.mybatis.generator.internal.DefaultShellCallback;
 import org.mybatis.generator.internal.util.JavaBeansUtil;
 
+import javax.validation.constraints.Max;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;

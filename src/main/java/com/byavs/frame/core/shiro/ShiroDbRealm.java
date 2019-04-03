@@ -1,8 +1,12 @@
 package com.byavs.frame.core.shiro;
 
+import com.byavs.frame.dao.model.User;
+import com.byavs.frame.service.UserAuthService;
+import com.byavs.frame.service.impl.UserAuthServiceServiceImpl;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
+import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.authc.credential.CredentialsMatcher;
 import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
 import org.apache.shiro.authz.AuthorizationInfo;
@@ -17,12 +21,11 @@ public class ShiroDbRealm extends AuthorizingRealm {
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authcToken)
             throws AuthenticationException {
-        /*UserAuthService shiroFactory = SpringContext.getBean();
+        UserAuthService shiroFactory = UserAuthServiceServiceImpl.me();
         UsernamePasswordToken token = (UsernamePasswordToken) authcToken;
         User user = shiroFactory.user(token.getUsername());
         ShiroUser shiroUser = shiroFactory.shiroUser(user);
-        return shiroFactory.info(shiroUser, user, super.getName());*/
-        return null;
+        return shiroFactory.info(shiroUser, user, super.getName());
     }
 
     /**

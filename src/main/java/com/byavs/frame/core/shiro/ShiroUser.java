@@ -28,20 +28,20 @@ public class ShiroUser implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    public Integer id;          // 主键ID
-    public String account;      // 账号
-    public String name;         // 姓名
-    public Integer deptId;      // 部门id
-    public List<Integer> roleList; // 角色集
-    public String deptName;        // 部门名称
-    public List<String> roleNames; // 角色名称集
+    private String id;          // 主键ID
+    private String account;      // 账号
+    private String name;         // 姓名
+    private Integer deptId;      // 部门id
+    private List<Integer> roleList; // 角色集
+    private String deptName;        // 部门名称
+    private List<String> roleNames; // 角色名称集
 
 
-    public Integer getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(String id) {
         this.id = id;
     }
 
