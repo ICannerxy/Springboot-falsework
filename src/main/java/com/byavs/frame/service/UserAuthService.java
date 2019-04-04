@@ -15,8 +15,8 @@
  */
 package com.byavs.frame.service;
 
-import com.byavs.frame.dao.model.User;
 import com.byavs.frame.core.shiro.ShiroUser;
+import com.byavs.frame.dao.model.UserProfile;
 import org.apache.shiro.authc.SimpleAuthenticationInfo;
 
 /**
@@ -32,7 +32,7 @@ public interface UserAuthService {
      *
      * @param account 账号
      */
-    User user(String account);
+    UserProfile user(String account);
 
 
     /**
@@ -40,11 +40,11 @@ public interface UserAuthService {
      *
      * @param user 系统用户
      */
-    ShiroUser shiroUser(User user);
+    ShiroUser shiroUser(UserProfile user);
 
     /**
      * 获取shiro的认证信息
      */
-    SimpleAuthenticationInfo info(ShiroUser shiroUser, User user, String realmName);
+    SimpleAuthenticationInfo info(ShiroUser shiroUser, UserProfile user, String realmName);
 
 }

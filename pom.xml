@@ -26,6 +26,8 @@
         <shiro.version>1.4.0</shiro.version>
         <ehcache2.version>2.10.6</ehcache2.version>
         <github.pagehelper.version>5.0.0</github.pagehelper.version>
+        <commons.io.version>2.2</commons.io.version>
+        <fastjson.version>1.2.30</fastjson.version>
     </properties>
 
     <dependencies>
@@ -150,6 +152,17 @@
             <groupId>cn.hutool</groupId>
             <artifactId>hutool-core</artifactId>
             <version>4.1.2</version>
+        </dependency>
+
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>${commons.io.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
+            <version>${fastjson.version}</version>
         </dependency>
 
     </dependencies>

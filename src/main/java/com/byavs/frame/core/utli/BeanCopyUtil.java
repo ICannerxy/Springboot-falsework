@@ -22,7 +22,14 @@ public final class BeanCopyUtil {
         if (obj == null) {
             return null;
         }
-        T target = BeanUtils.instantiate(tClass);
+        T target = null;
+        try {
+            target = tClass.newInstance();
+        }  catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+        }
         BeanUtils.copyProperties(obj, target);
         return target;
 

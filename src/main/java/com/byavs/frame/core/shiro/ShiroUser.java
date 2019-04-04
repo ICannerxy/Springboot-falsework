@@ -31,9 +31,7 @@ public class ShiroUser implements Serializable {
     private String id;          // 主键ID
     private String account;      // 账号
     private String name;         // 姓名
-    private Integer deptId;      // 部门id
     private List<Integer> roleList; // 角色集
-    private String deptName;        // 部门名称
     private List<String> roleNames; // 角色名称集
 
 
@@ -61,28 +59,12 @@ public class ShiroUser implements Serializable {
         this.name = name;
     }
 
-    public Integer getDeptId() {
-        return deptId;
-    }
-
-    public void setDeptId(Integer deptId) {
-        this.deptId = deptId;
-    }
-
     public List<Integer> getRoleList() {
         return roleList;
     }
 
     public void setRoleList(List<Integer> roleList) {
         this.roleList = roleList;
-    }
-
-    public String getDeptName() {
-        return deptName;
-    }
-
-    public void setDeptName(String deptName) {
-        this.deptName = deptName;
     }
 
     public List<String> getRoleNames() {

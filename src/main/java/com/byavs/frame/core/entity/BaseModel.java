@@ -17,7 +17,7 @@ public class BaseModel implements Serializable {
     /**
      * 主键ID
      */
-    private String id;
+    protected String id;
     /**
      * 创建时间
      */
@@ -26,7 +26,7 @@ public class BaseModel implements Serializable {
     /**
      * 创建人
      */
-    private String creator;
+    protected String creator;
 
     /**
      * 创建人编号

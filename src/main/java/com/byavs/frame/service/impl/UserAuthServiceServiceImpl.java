@@ -15,15 +15,14 @@
  */
 package com.byavs.frame.service.impl;
 
-import com.byavs.frame.dao.model.User;
+import cn.hutool.core.convert.Convert;
+import com.byavs.frame.dao.mapper.UserProfileMapper;
+import com.byavs.frame.dao.model.UserProfile;
+import com.byavs.frame.dao.model.UserProfileExample;
 import com.byavs.frame.service.UserAuthService;
 import com.byavs.frame.core.shiro.ShiroUser;
 import com.byavs.frame.core.utli.BeanCopyUtil;
 import com.byavs.frame.core.utli.CollectionUtil;
-import com.byavs.frame.config.SpringContextHolder;
-import com.byavs.frame.dao.mapper.SysUserMapper;
-import com.byavs.frame.dao.model.SysUser;
-import com.byavs.frame.dao.model.SysUserExample;
 import org.apache.shiro.authc.CredentialsException;
 import org.apache.shiro.authc.SimpleAuthenticationInfo;
 import org.apache.shiro.crypto.hash.Md5Hash;
@@ -42,19 +41,20 @@ import java.util.List;
 public class UserAuthServiceServiceImpl implements UserAuthService {
 
     @Autowired
-    private SysUserMapper userMapper;
+    private UserProfileMapper userMapper;
 
-    public static UserAuthService me() {
-        return SpringContextHolder.getBean(UserAuthService.class);
-    }
-
+    /**
+     * 根据账号查找用户
+     *
+     * @param account 账号
+     * @return
+     */
     @Override
-    public User user(String account) {
-        SysUserExample example = new SysUserExample();
-        SysUserExample.Criteria criteria = example.createCriteria();
+    public UserProfile user(String account) {
+        UserProfileExample example = new UserProfileExample();
+        UserProfileExample.Criteria criteria = example.createCriteria();
         criteria.andAccountEqualTo(account);
-        List<SysUser> userList = this.userMapper.selectByExample(example);
-
+        List<UserProfile> userList = this.userMapper.selectByExample(example);
         // 账号不存在
         if (CollectionUtil.isEmpty(userList)) {
             throw new CredentialsException();
@@ -63,21 +63,17 @@ public class UserAuthServiceServiceImpl implements UserAuthService {
         /*if (user.getStatus() != ManagerStatus.OK.getCode()) {
             throw new LockedAccountException();
         }*/
-        User user = BeanCopyUtil.cloneObject(userList.get(0), User.class);
-        return user;
+        return BeanCopyUtil.cloneObject(userList.get(0), UserProfile.class);
     }
 
     @Override
-    public ShiroUser shiroUser(User user) {
+    public ShiroUser shiroUser(UserProfile user) {
         ShiroUser shiroUser = new ShiroUser();
 
         shiroUser.setId(user.getId());
         shiroUser.setAccount(user.getAccount());
-        shiroUser.setDeptId(user.getDeptid());
-        //shiroUser.setDeptName(ConstantFactory.me().getDeptName(user.getDeptid()));
         shiroUser.setName(user.getName());
-
-       // Integer[] roleArray = Convert.toIntArray(user.getRoleid());
+        //Integer[] roleArray = Convert.toIntArray(user.getRoleid());
         List<Integer> roleList = new ArrayList<Integer>();
         List<String> roleNameList = new ArrayList<String>();
        /* for (int roleId : roleArray) {
@@ -91,7 +87,7 @@ public class UserAuthServiceServiceImpl implements UserAuthService {
     }
 
     @Override
-    public SimpleAuthenticationInfo info(ShiroUser shiroUser, User user, String realmName) {
+    public SimpleAuthenticationInfo info(ShiroUser shiroUser, UserProfile user, String realmName) {
         String credentials = user.getPassword();
 
         // 密码加盐处理

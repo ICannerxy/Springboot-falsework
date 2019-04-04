@@ -4,9 +4,8 @@ import com.byavs.frame.core.entity.Response;
 import com.byavs.frame.core.shiro.ShiroKit;
 import com.byavs.frame.core.shiro.ShiroUser;
 import com.byavs.frame.core.utli.HttpContext;
-import com.byavs.frame.dao.model.SysUser;
-import com.byavs.frame.domain.vo.SysUserVo;
-import com.byavs.frame.service.IUserService;
+import com.byavs.frame.domain.vo.UserProfileVo;
+import com.byavs.frame.service.IUserProfileService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -16,38 +15,30 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.Cookie;
-import java.util.List;
 
 /**
  * @author XuYang
- * @description: TODO
+ * @description: 登录控制器
  * @date 2019/4/313:31
  */
 @Api(description = "登录模块")
 @RestController
 public class LoginController  {
 
-    //@Autowired
-    //private MenuService menuService;
-
     @Autowired
-    private IUserService userService;
+    private IUserProfileService userProfileService;
 
     /**
-     * 跳转到主页
+     * 添加用户
+     *
+     * @param userProfileVo
+     * @return
      */
-    @RequestMapping(value = "/list", method = RequestMethod.POST)
-    public List<SysUser> list(@RequestBody SysUserVo sysUserVo) {
-        System.out.println(sysUserVo.getAccount());
-        return userService.listUser();
-    }
-
-    /**
-     * 当没登录直接访问其他路由时,shiro的机制会自动进到这里
-     */
-    @RequestMapping(value = "/login", method = RequestMethod.GET)
-    public Response login() {
-        return Response.failure("请先登录!");
+    @PostMapping("/addUser")
+    @ApiOperation("添加用户")
+    public Response addUser(@RequestBody UserProfileVo userProfileVo) {
+        userProfileService.addUser(userProfileVo);
+        return Response.success(userProfileVo.getId());
     }
 
     /**
