@@ -154,6 +154,6 @@
                 如果使用了columnOverride元素，该属性无效；
             注意，table里面很多参数都是对javaModelGenerator，context等元素的默认属性的一个复写；
          -->
-        <table tableName="sys_role"/>
+        <table tableName="role"/>
     </context>
 </generatorConfiguration>

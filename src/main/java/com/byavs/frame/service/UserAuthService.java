@@ -19,6 +19,8 @@ import com.byavs.frame.core.shiro.ShiroUser;
 import com.byavs.frame.dao.model.UserProfile;
 import org.apache.shiro.authc.SimpleAuthenticationInfo;
 
+import java.util.List;
+
 /**
  * 定义shirorealm所需数据的接口
  *
@@ -47,4 +49,11 @@ public interface UserAuthService {
      */
     SimpleAuthenticationInfo info(ShiroUser shiroUser, UserProfile user, String realmName);
 
+    /**
+     * 根据角色主键获取权限列表
+     *
+     * @param roleId
+     * @return
+     */
+    List<String> findPermissionsByRoleId(String roleId);
 }

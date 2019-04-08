@@ -1,7 +1,7 @@
 package com.byavs.frame.core.exception;
 
 
-import com.byavs.frame.core.constants.ResultCode;
+import com.byavs.frame.core.constant.ResultCode;
 
 /**
  * Created by qibin.long on 2017/4/14.

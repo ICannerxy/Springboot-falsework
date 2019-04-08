@@ -2,7 +2,7 @@ package com.byavs.frame.core.entity;
 
 
 
-import com.byavs.frame.core.constants.ResultCode;
+import com.byavs.frame.core.constant.ResultCode;
 
 import java.io.Serializable;
 

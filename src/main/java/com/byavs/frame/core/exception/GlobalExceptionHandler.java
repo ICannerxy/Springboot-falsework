@@ -1,6 +1,6 @@
 package com.byavs.frame.core.exception;
 
-import com.byavs.frame.core.constants.LogCatalog;
+import com.byavs.frame.core.constant.LogCatalog;
 import com.byavs.frame.core.entity.Response;
 import org.apache.ibatis.exceptions.PersistenceException;
 import org.mybatis.spring.MyBatisSystemException;

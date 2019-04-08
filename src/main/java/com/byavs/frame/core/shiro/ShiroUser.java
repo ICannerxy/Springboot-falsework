@@ -15,7 +15,10 @@
  */
 package com.byavs.frame.core.shiro;
 
+import javax.validation.constraints.Digits;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -28,12 +31,89 @@ public class ShiroUser implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    private String id;          // 主键ID
-    private String account;      // 账号
-    private String name;         // 姓名
-    private List<Integer> roleList; // 角色集
+    /**
+     * 主键
+     */
+    private String id;
+    /**
+     * 头像
+     */
+    private String avatar;
+    /**
+     * 账号
+     */
+    private String account;
+    /**
+     * 姓名
+     */
+    private String name;
+    /**
+     * 生日
+     */
+    private Date birthday;
+
+    /**
+     * 性别（1：男 2：女）
+     */
+    private Integer sex;
+    /**
+     * 电子邮件
+     */
+    private String email;
+    /**
+     * 电话
+     */
+    private String phone;
+    /**
+     * 角色集合
+     */
+    private List<String> roleList; // 角色集
     private List<String> roleNames; // 角色名称集
 
+
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
+    }
+
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
+    }
+
+    public Date getBirthday() {
+        return birthday;
+    }
+
+    public void setBirthday(Date birthday) {
+        this.birthday = birthday;
+    }
+
+    public Integer getSex() {
+        return sex;
+    }
+
+    public void setSex(Integer sex) {
+        this.sex = sex;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
 
     public String getId() {
         return id;
@@ -59,11 +139,11 @@ public class ShiroUser implements Serializable {
         this.name = name;
     }
 
-    public List<Integer> getRoleList() {
+    public List<String> getRoleList() {
         return roleList;
     }
 
-    public void setRoleList(List<Integer> roleList) {
+    public void setRoleList(List<String> roleList) {
         this.roleList = roleList;
     }
 

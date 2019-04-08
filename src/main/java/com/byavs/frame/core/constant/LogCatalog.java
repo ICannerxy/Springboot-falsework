@@ -1,17 +1,19 @@
-package com.byavs.frame.core.constants;
+package com.byavs.frame.core.constant;
 
 /**
  * Created by qibin.long on 2017/4/14.
  */
-public enum ResultCode {
+public enum LogCatalog {
 
-    SUCCESS(200, "ok"),
-    ERROR(-1, "unknown exception");
+    SYS(-1, "system error"),
+    APP(-2, "application error"),
+    UPLOAD(-3, "file upload error"),
+    SPRING_DATA_BIND(-4, "spring data bind error");
 
     private int code;
     private String value;
 
-    private ResultCode(int code, String value) {
+    private LogCatalog(int code, String value) {
         this.code = code;
         this.value = value;
     }

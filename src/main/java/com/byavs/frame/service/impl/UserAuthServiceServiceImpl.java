@@ -16,14 +16,18 @@
 package com.byavs.frame.service.impl;
 
 import cn.hutool.core.convert.Convert;
+import com.byavs.frame.core.utli.ToolUtil;
 import com.byavs.frame.dao.mapper.UserProfileMapper;
 import com.byavs.frame.dao.model.UserProfile;
 import com.byavs.frame.dao.model.UserProfileExample;
+import com.byavs.frame.domain.constant.ManagerStatus;
+import com.byavs.frame.service.RoleService;
 import com.byavs.frame.service.UserAuthService;
 import com.byavs.frame.core.shiro.ShiroUser;
 import com.byavs.frame.core.utli.BeanCopyUtil;
 import com.byavs.frame.core.utli.CollectionUtil;
 import org.apache.shiro.authc.CredentialsException;
+import org.apache.shiro.authc.LockedAccountException;
 import org.apache.shiro.authc.SimpleAuthenticationInfo;
 import org.apache.shiro.crypto.hash.Md5Hash;
 import org.apache.shiro.util.ByteSource;
@@ -33,6 +37,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -42,6 +47,8 @@ public class UserAuthServiceServiceImpl implements UserAuthService {
 
     @Autowired
     private UserProfileMapper userMapper;
+    @Autowired
+    private RoleService roleService;
 
     /**
      * 根据账号查找用户
@@ -59,27 +66,25 @@ public class UserAuthServiceServiceImpl implements UserAuthService {
         if (CollectionUtil.isEmpty(userList)) {
             throw new CredentialsException();
         }
+        UserProfile user = userList.get(0);
         // 账号被冻结
-        /*if (user.getStatus() != ManagerStatus.OK.getCode()) {
+        if (user.getStatus() != ManagerStatus.OK.getCode()) {
             throw new LockedAccountException();
-        }*/
-        return BeanCopyUtil.cloneObject(userList.get(0), UserProfile.class);
+        }
+        return BeanCopyUtil.cloneObject(user, UserProfile.class);
     }
 
     @Override
     public ShiroUser shiroUser(UserProfile user) {
-        ShiroUser shiroUser = new ShiroUser();
-
-        shiroUser.setId(user.getId());
-        shiroUser.setAccount(user.getAccount());
-        shiroUser.setName(user.getName());
-        //Integer[] roleArray = Convert.toIntArray(user.getRoleid());
-        List<Integer> roleList = new ArrayList<Integer>();
-        List<String> roleNameList = new ArrayList<String>();
-       /* for (int roleId : roleArray) {
+        ShiroUser shiroUser = BeanCopyUtil.cloneObject(user, ShiroUser.class);
+        String[] roleArray = Convert.toStrArray(user.getRoleid());
+        List<String> roleList = new ArrayList<>();
+        List<String> roleNameList = new ArrayList<>();
+        for (String roleId : roleArray) {
             roleList.add(roleId);
-            roleNameList.add(ConstantFactory.me().getSingleRoleName(roleId));
-        }*/
+            String roleName = roleService.getSingleRoleName(roleId);
+            roleNameList.add(roleName);
+        }
         shiroUser.setRoleList(roleList);
         shiroUser.setRoleNames(roleNameList);
 
@@ -96,4 +101,18 @@ public class UserAuthServiceServiceImpl implements UserAuthService {
         return new SimpleAuthenticationInfo(shiroUser, credentials, credentialsSalt, realmName);
     }
 
+    /**
+     * 根据角色主键获取权限列表
+     *
+     * @param roleId
+     * @return
+     */
+    @Override
+    public List<String> findPermissionsByRoleId(String roleId) {
+        if (ToolUtil.isEmpty(roleId)) {
+            return Collections.EMPTY_LIST;
+        }
+
+        return null;
+    }
 }
